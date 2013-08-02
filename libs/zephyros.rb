@@ -227,6 +227,7 @@ class Rect < Struct.new(:x, :y, :w, :h)
 end
 
 $window_grid_width = 3
+$window_grid_height = 2
 $window_grid_margin_x = 5
 $window_grid_margin_y = 5
 
@@ -288,7 +289,7 @@ class Window < ZephObject
     win_frame = self.frame
     screen_rect = self.screen.frame_without_dock_or_menu
     third_screen_width = screen_rect.w / $window_grid_width.to_f
-    half_screen_height = screen_rect.h / 2.0
+    half_screen_height = screen_rect.h / $window_grid_height.to_f
     Rect.make(((win_frame.x - screen_rect.min_x) / third_screen_width).round,
               ((win_frame.y - screen_rect.min_y) / half_screen_height).round,
               [(win_frame.w.round / third_screen_width).round, 1].max,
@@ -299,7 +300,7 @@ class Window < ZephObject
     screen = screen || self.screen
     screen_rect = screen.frame_without_dock_or_menu
     third_screen_width = screen_rect.w / $window_grid_width.to_f
-    half_screen_height = screen_rect.h / 2.0
+    half_screen_height = screen_rect.h / $window_grid_height.to_f
     new_frame = Rect.make((g.x * third_screen_width) + screen_rect.min_x,
                           (g.y * half_screen_height) + screen_rect.min_y,
                           g.w * third_screen_width,
